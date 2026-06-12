@@ -54,11 +54,6 @@
 <div class="container">
     <input type="date" id="startDate">
 
-    <select id="format">
-        <option value="numeric">7/6/2026</option>
-        <option value="text">7 June 2026</option>
-    </select>
-
     <button onclick="generateDates()">Generate</button>
 </div>
 
@@ -69,7 +64,6 @@
 function generateDates() {
 
     const dateInput = document.getElementById("startDate").value;
-    const format = document.getElementById("format").value;
 
     if (!dateInput) {
         alert("Please select a date.");
@@ -81,8 +75,8 @@ function generateDates() {
 
     const startDate = new Date(dateInput);
 
-    // Spaced repetition intervals
-    const intervals = [1, 3, 7, 14, 30, 60];
+    // Day 0, 1, 2, 4, 7, 14, 30, 60
+    const intervals = [0, 1, 2, 4, 7, 14, 30, 60];
 
     intervals.forEach(days => {
 
@@ -91,21 +85,11 @@ function generateDates() {
 
         const li = document.createElement("li");
 
-        if (format === "numeric") {
-            li.textContent =
-                reviewDate.getDate() + "/" +
-                (reviewDate.getMonth() + 1) + "/" +
-                reviewDate.getFullYear();
-        } else {
-            li.textContent = reviewDate.toLocaleDateString(
-                "en-GB",
-                {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                }
-            );
-        }
+        li.textContent =
+            "Day " + days + ": " +
+            reviewDate.getDate() + "/" +
+            (reviewDate.getMonth() + 1) + "/" +
+            reviewDate.getFullYear();
 
         result.appendChild(li);
     });
